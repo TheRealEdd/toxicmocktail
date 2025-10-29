@@ -1,0 +1,257 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'YesevaOne';
+    src: url(Fonts/YesevaOne-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    height: 100%;
+    font-family: YesevaOne, sans-serif;
+    background-color: black;
+    scroll-behavior: smooth;
+    color: #ffc636;
+}
+
+p, li {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 3em;
+}
+
+.hero {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%); /* Center the overlay */
+    z-index: 1000;
+}
+
+
+
+.logo {
+    height: clamp(250px, 20vw, 70vh); 
+    position: absolute; /* Absolutely position the logo */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%) translateY(-50%); /* Adjust for centering */
+}
+
+.button {
+    position: absolute; /* Absolutely position the buttons */
+    transform: translateY(-50%);
+
+}
+
+.button:first-of-type { /* For the Tour Dates button */
+    right: 20vw; /* 150px being half the width of the button */
+    
+}
+
+.button:last-of-type { /* For the Gallery button */
+    left: 20vw; /* 100px being half the width of the button */
+}
+
+.button img {
+    height: clamp(50px, 7vw, 10vh); 
+}
+
+@media (max-width: 1120px) {
+    .logo {
+        transform: translateX(-50%) translateY(-70%); /* Adjust for centering */    
+        width: clamp(60vw, 300px, 80vw);
+        height: auto;
+
+    }
+
+    .button {
+        transform: translateY(0px) translateX(-50%);
+    }
+
+    .button:first-of-type { /* For the Tour Dates button */
+        top: 150px; /* 150px being half the width of the button */
+        right: inherit;
+        left: 50%;
+
+    }
+
+    .button:last-of-type { /* For the Gallery button */
+        top: 250px; /* 100px being half the width of the button */
+        left: 50%;
+    }
+
+    
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1));
+}
+
+#about {
+    transform: translateY(-100px);
+    align-items: center;
+}
+
+#about>p {
+    max-width: 70ch;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#tour-dates, #gallery, #about {
+    padding: 50px;
+    text-align: center;
+}
+
+.section-header {
+    margin: 20px 0;
+}
+
+.tour-dates-list {
+    list-style-type: none;
+    font-size: 0.8em;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.spacer {
+    margin: 1.5em auto;
+}
+
+.gallery-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.gallery img {
+    height: clamp(100px, 80vh, 500px); /* Adjust based on height */
+    margin: 0 10px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out;
+    cursor: pointer; /* Show pointer on images */
+}
+
+.gallery img:hover {
+    filter: grayscale(0%);
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 3em;
+    color: #ffc636; /* Change as needed */
+    text-shadow: 0 3px black;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.nav-button.left {
+    left: 0;
+}
+
+.nav-button.right {
+    right: 0;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0; /* Start with zero opacity */
+    transition: opacity 0.5s ease; /* Fade transition */
+}
+
+.modal.show {
+    display: block; /* Show the modal */
+    opacity: 1; /* Full opacity when visible */
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 90vw;  /* Max width of 90% of viewport width */
+    max-height: 90vh; /* Max height of 90% of viewport height */
+    width: auto;       /* Auto width to preserve aspect ratio */
+    height: auto;      /* Auto height to preserve aspect ratio */
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.5s ease; /* Still animate scaling */
+}
+
+
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+
+footer {
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.social-media img {
+    margin: 0 30px;
+    height: 50px; /* Adjust based on size */
+}

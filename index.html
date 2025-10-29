@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="Images/favicon.png">
+    <title>Toxic Mocktail | Home</title>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <video autoplay loop muted class="hero-video">
+            <source src="Video/TM Hero Video v1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay">
+            <a href="#tour-dates" class="button"><img src="Images/tour dates.png" alt="Tour Dates"></a>
+            <img src="Images/Tm logo yellow.png" alt="Toxic Mocktail Band Logo" class="logo">
+            <a href="#gallery" class="button"><img src="Images/gallery.png" alt="Gallery"></a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <p>We are Toxic Mocktail, a local rock band in Groningen. We write original music and occasionally perform covers in our own styles.</p>
+    </section>
+
+    <!-- Tour Dates Section -->
+    <section id="tour-dates">
+        <h2 class="section-header">Tour Dates</h2>
+        <ul class="tour-dates-list">
+            <li>New live performances will be announced soon!</li>
+            <li class="spacer">-------------</li>
+            <li class="strikethrough">24.10.2025 - O'Ceallaigh - Groningen</li>
+            <li class="strikethrough">19.09.2025 - All Round - Groningen</li>
+            <li class="strikethrough">13.09.2025 - Suikerbrei | The Bamboo Lodge - Groningen</li>
+            <li class="strikethrough">10.09.2025 - Rå - Groningen</li>
+        </ul>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+    <div class="gallery-container">
+        <button class="nav-button left">&lt;</button>
+        <div class="gallery">
+            <img src="Images/Photography/WhatsApp Image 2025-09-14 at 19.04.58_042a4b77.jpg" alt="Image 1">
+            <img src="Images/Photography/WhatsApp Image 2025-09-23 at 08.11.01_ccd0aa95.jpg" alt="Image 3">
+            <img src="Images/Photography/WhatsApp Image 2025-09-23 at 14.08.31_fbc8e16e.jpg" alt="Image 4">
+            <img src="Images/Photography/WhatsApp Image 2025-09-23 at 14.08.32_db2b73bd.jpg" alt="Image 5">
+            <img src="Images/Photography/WhatsApp Image 2025-09-14 at 19.05.01_d0a66049.jpg" alt="Image 2">
+            <img src="Images/Photography/WhatsApp Image 2025-10-25 at 12.51.26_583aa739.jpg" alt="Image 5">
+        </div>
+        <button class="nav-button right">&gt;</button>
+    </div>
+
+    <!-- Modal Structure -->
+    <div class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div class="caption"></div>
+    </div>
+</section>
+
+
+    <!-- Social Media Links -->
+    <footer>
+        <div class="social-media">
+            <a href="https://www.instagram.com/toxicmocktail.band/" target="_blank"><img src="Images/insta.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@toxicmocktail" target="_blank"><img src="Images/youtube.png" alt="YouTube"></a>
+            <a href="mailto:toxicmocktailband@gmail.com"><img src="Images/email.png" alt="Email"></a>
+            <!-- <a href="https://www.instagram.com/toxicmocktail.band/"><img src="Images/Twitter X.png" alt="Twitter"></a> -->
+        </div>
+        <p style="font-size: 1em;">© Edward Rocca 2025</p>
+    </footer>
+</body>
+<script src="gallery.js"></script>
+</html>
