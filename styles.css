@@ -65,7 +65,6 @@ h2 {
 .button {
     position: absolute; /* Absolutely position the buttons */
     transform: translateY(-50%);
-
 }
 
 .button:first-of-type { /* For the Tour Dates button */
@@ -133,10 +132,12 @@ h2 {
 .gallery-container {
     display: flex;
     align-items: center;
-    overflow-x: scroll; /* Allow horizontal scrolling */
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    scrollbar-width: none; /* Firefox */
+    overflow-x: scroll; 
+    overflow-y: hidden; 
+    scrollbar-width: none; 
+    scroll-behavior: smooth; /* Enable smooth scrolling */
 }
+
 
 /* Hide scrollbar for webkit browsers */
 .gallery-container::-webkit-scrollbar {
@@ -167,6 +168,7 @@ h2 {
     cursor: pointer;
     font-size: 3em;
     color: #ffc636; /* Change as needed */
+    padding: 20px;
     text-shadow: 0 3px black;
     position: absolute;
     top: 50%;
