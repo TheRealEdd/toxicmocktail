@@ -81,32 +81,7 @@ h2 {
     height: clamp(50px, 7vw, 10vh); 
 }
 
-@media (max-width: 1120px) {
-    .logo {
-        transform: translateX(-50%) translateY(-70%); /* Adjust for centering */    
-        width: clamp(60vw, 300px, 80vw);
-        height: auto;
 
-    }
-
-    .button {
-        transform: translateY(0px) translateX(-50%);
-    }
-
-    .button:first-of-type { /* For the Tour Dates button */
-        top: 150px; /* 150px being half the width of the button */
-        right: inherit;
-        left: 50%;
-
-    }
-
-    .button:last-of-type { /* For the Gallery button */
-        top: 250px; /* 100px being half the width of the button */
-        left: 50%;
-    }
-
-    
-}
 
 .hero::after {
     content: '';
@@ -130,7 +105,7 @@ h2 {
 }
 
 #tour-dates, #gallery, #about {
-    padding: 50px;
+    padding: 50px 10px;
     text-align: center;
 }
 
@@ -151,11 +126,21 @@ h2 {
     margin: 1.5em auto;
 }
 
+#gallery {
+    position: relative; /* Establish a positioning context for both buttons */
+}
+
 .gallery-container {
     display: flex;
     align-items: center;
-    overflow: hidden;
-    position: relative;
+    overflow-x: scroll; /* Allow horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for webkit browsers */
+.gallery-container::-webkit-scrollbar {
+    display: none; 
 }
 
 .gallery {
@@ -190,11 +175,11 @@ h2 {
 }
 
 .nav-button.left {
-    left: 0;
+    left: 10px;
 }
 
 .nav-button.right {
-    right: 0;
+    right: 10px;
 }
 
 .modal {
@@ -254,4 +239,34 @@ footer {
 .social-media img {
     margin: 0 30px;
     height: 50px; /* Adjust based on size */
+}
+
+@media (max-width: 1120px) {
+    .logo {
+        transform: translateX(-50%) translateY(-70%); /* Adjust for centering */    
+        width: clamp(60vw, 300px, 80vw);
+        height: auto;
+
+    }
+
+    .button {
+        transform: translateY(0px) translateX(-50%);
+    }
+
+    .button:first-of-type { /* For the Tour Dates button */
+        top: 150px; /* 150px being half the width of the button */
+        right: inherit;
+        left: 50%;
+
+    }
+
+    .button:last-of-type { /* For the Gallery button */
+        top: 250px; /* 100px being half the width of the button */
+        left: 50%;
+    }
+
+    .gallery img {
+        height: clamp(100px, 80vw, 500px); /* Adjust based on height */
+    }
+    
 }

@@ -1,4 +1,3 @@
-const gallery = document.querySelector('.gallery');
 const images = document.querySelectorAll('.gallery img');
 const modal = document.querySelector('.modal');
 const modalImg = document.getElementById("modal-img");
@@ -6,36 +5,22 @@ const closeButton = document.querySelector('.close');
 
 let currentIndex = 0;
 
-// Function to navigate gallery images
-function updateGallery() {
-    const galleryWidth = gallery.scrollWidth; // Total width of the gallery
-    const viewportWidth = document.querySelector('#gallery').clientWidth; // Width of the gallery section
-    const offset = currentIndex * -700; // Scroll by fixed distance of 700 pixels
+const galleryContainer = document.querySelector('.gallery-container');
 
-    // Calculate maximum offset
-    const maxOffset = galleryWidth - viewportWidth; // Max allowed offset
-    
-    // Apply constraints to the scrolling
-    gallery.style.transform = `translateX(${Math.max(offset, -maxOffset)}px)`;
-}
+// Smooth scroll to the next image
+function scrollGallery(direction) {
+    const imageWidth = galleryContainer.clientWidth; // Width of the gallery section
+    const scrollAmount = direction === 1 ? imageWidth : -imageWidth; // Calculate scroll amount
 
-// Navigate to the next or previous image
-function navigate(direction) {
-    currentIndex += direction;
-
-    // Calculate max index based on number of images
-    if (currentIndex < 0) {
-        currentIndex = 0; // Prevent going too far left
-    } else if (currentIndex >= images.length) {
-        currentIndex = images.length - 1; // Prevent going too far right
-    }
-
-    updateGallery();
+    galleryContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth' // Smooth scrolling effect
+    });
 }
 
 // Event listeners for navigation buttons
-document.querySelector('.nav-button.left').addEventListener('click', () => navigate(-1));
-document.querySelector('.nav-button.right').addEventListener('click', () => navigate(1));
+document.querySelector('.nav-button.left').addEventListener('click', () => scrollGallery(-1)); // Scroll left
+document.querySelector('.nav-button.right').addEventListener('click', () => scrollGallery(1)); // Scroll right
 
 
 
@@ -81,17 +66,22 @@ modal.addEventListener('click', (event) => {
     }
 });
 
+let startX = 0; // To track the start position of touch event
 
-// Handling shift scrolling behavior
-window.addEventListener('wheel', (event) => {
-    if (event.shiftKey) {
-        event.preventDefault(); // Prevent default vertical scrolling
-        if (event.deltaY > 0) {
-            // Scroll down (navigate right)
-            navigate(1);
-        } else {
-            // Scroll up (navigate left)
-            navigate(-1);
-        }
+// Add touch event listeners for swiping
+gallery.addEventListener('touchstart', (event) => {
+    startX = event.touches[0].clientX; // Store the initial touch position
+});
+
+gallery.addEventListener('touchmove', (event) => {
+    const moveX = event.touches[0].clientX; // Updated touch position
+    const deltaX = startX - moveX; // Calculate the difference
+
+    if (deltaX > 50) { // Swipe left threshold
+        navigate(1); // Navigate right
+        startX = moveX; // Reset start position
+    } else if (deltaX < -50) { // Swipe right threshold
+        navigate(-1); // Navigate left
+        startX = moveX; // Reset start position
     }
 });
