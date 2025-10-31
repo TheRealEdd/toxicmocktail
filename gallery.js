@@ -6,7 +6,7 @@ const scrollContainer = document.querySelector('.gallery-container');
 
 let currentIndex = 0;
 let autoScrollInterval;
-let scrollSpeed = 2000; //milliseconds
+let scrollSpeed = 3000; //interval for autoscroll in milliseconds
 
 
 function scrollGallery(direction) {
