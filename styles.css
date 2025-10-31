@@ -266,6 +266,10 @@ footer {
         margin: 50px auto; /* Center the overlay */
     }
 
+    .hero-video {
+        left: 100%;
+    }
+
     .logo {
         position: relative;
         width: clamp(100px, 70vw, 600px);
