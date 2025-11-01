@@ -148,20 +148,24 @@ gallery.addEventListener('touchmove', (event) => {
 
 
 
+let currentVideoSource = ''; // Initialize a variable to keep track of the current video source
+
 function updateVideoSource() {
-        const videoElement = document.getElementById('heroVideo');
-        const desktopSource = 'Video/TM Hero Video Desktop.mp4';
-        const mobileSource = 'Video/TM mobile hero tiny size.mp4'; // Your mobile video
+    const videoElement = document.getElementById('heroVideo');
+    const desktopSource = 'Video/TM Hero Video Desktop.mp4';
+    const mobileSource = 'Video/TM mobile hero tiny size.mp4';
 
-        if (window.innerWidth <= 1120) { // Adjust the width according to your needs
-            videoElement.src = mobileSource;
-        } else {
-            videoElement.src = desktopSource;
-        }
+    // Determine the new source based on window width
+    let newSource = window.innerWidth <= 1120 ? mobileSource : desktopSource;
 
-        // Load the new video source
-        videoElement.load();
+    // Only update if the new source is different from the current source
+    if (newSource !== currentVideoSource) {
+        currentVideoSource = newSource; // Update the current source
+        videoElement.src = newSource; // Change the video source
+        videoElement.load(); // Reload the video
     }
+}
 
-    window.onload = updateVideoSource; // Initial load
-    window.onresize = updateVideoSource; // Update on resize
+// Initial load and resize event listeners
+window.onload = updateVideoSource;
+window.onresize = updateVideoSource;
