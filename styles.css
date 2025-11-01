@@ -252,10 +252,16 @@ footer {
         font-size: 2em;
     }
 
+    .hero {
+        height: 70vh;
+        min-height: 600px;
+    }
+
     .overlay {
         position: absolute;
         top: 0; /* Align overlay to the top */
         left: 50%;
+        padding-top: 10vh;
         transform: translateX(-50%);
         display: flex;                 
         flex-direction: column;        
@@ -264,10 +270,6 @@ footer {
         height: 100%; /* Ensure the overlay takes full height */
         width: 90%; /* Ensure the overlay takes 90% of the width */
         margin: 50px auto; /* Center the overlay */
-    }
-
-    .hero-video {
-        left: 100%;
     }
 
     .logo {

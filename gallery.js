@@ -145,3 +145,23 @@ gallery.addEventListener('touchmove', (event) => {
         startX = moveX; // Reset start position
     }
 });
+
+
+
+function updateVideoSource() {
+        const videoElement = document.getElementById('heroVideo');
+        const desktopSource = 'Video/TM Hero Video Desktop.mp4';
+        const mobileSource = 'Video/TM Hero Video Mobile.mp4'; // Your mobile video
+
+        if (window.innerWidth <= 1120) { // Adjust the width according to your needs
+            videoElement.src = mobileSource;
+        } else {
+            videoElement.src = desktopSource;
+        }
+
+        // Load the new video source
+        videoElement.load();
+    }
+
+    window.onload = updateVideoSource; // Initial load
+    window.onresize = updateVideoSource; // Update on resize
