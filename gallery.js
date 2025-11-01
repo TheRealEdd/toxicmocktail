@@ -151,7 +151,7 @@ gallery.addEventListener('touchmove', (event) => {
 function updateVideoSource() {
         const videoElement = document.getElementById('heroVideo');
         const desktopSource = 'Video/TM Hero Video Desktop.mp4';
-        const mobileSource = 'Video/TM Hero Video Mobile.mp4'; // Your mobile video
+        const mobileSource = 'Video/TM mobile hero tiny size.mp4'; // Your mobile video
 
         if (window.innerWidth <= 1120) { // Adjust the width according to your needs
             videoElement.src = mobileSource;
