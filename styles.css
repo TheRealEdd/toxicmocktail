@@ -273,12 +273,14 @@ footer {
     }
 
     .hero-video {
+        top: 0;
         max-height: 100%;
+        transform: translate(-50%, 0); /* Adjusted to only translate horizontally */
     }
 
     .logo {
         position: relative;
-        width: clamp(100px, 70vw, 600px);
+        width: clamp(100px, 70vw, 400px);
         height: auto; /* Auto height to maintain aspect ratio */
         margin-bottom: 50px; /* Spacing below the logo */
         left: initial;
@@ -294,7 +296,7 @@ footer {
     }
     
     .button img {
-        height: clamp(10px, 15vw, 100px); /* Image size adjustments */
+        height: clamp(10px, 15vw, 65px); /* Image size adjustments */
         width: auto; /* Keep image aspect ratio */
     }
 
