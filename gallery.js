@@ -6,60 +6,70 @@ const scrollContainer = document.querySelector('.gallery-container');
 
 let currentIndex = 0;
 let autoScrollInterval;
-let scrollSpeed = 3000; //interval for autoscroll in milliseconds
-
+let scrollSpeed = 3000; // interval for auto-scroll in milliseconds
 
 function scrollGallery(direction) {
     const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
     if (direction === 1) {
-        // Check if we are at or near the end
         if (scrollContainer.scrollLeft >= maxScrollLeft) {
-            currentIndex = 0; // Reset to the first image
+            currentIndex = 0;
             scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-            currentIndex = (currentIndex + 1) % images.length; // Cycle to the next image
-            images[currentIndex].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+            currentIndex = (currentIndex + 1) % images.length;
+
+            const imageRect = images[currentIndex].getBoundingClientRect();
+            const containerRect = scrollContainer.getBoundingClientRect();
+            const scrollPosition = imageRect.left - containerRect.width / 2 + imageRect.width / 2 + scrollContainer.scrollLeft;
+
+            scrollContainer.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
         }
     } else {
-        // Check if we are at the start
         if (scrollContainer.scrollLeft <= 0) {
-            currentIndex = images.length - 1; // Reset to the last image
+            currentIndex = images.length - 1;
             scrollContainer.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
         } else {
-            currentIndex = (currentIndex - 1 + images.length) % images.length; // Cycle to the previous image
-            images[currentIndex].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+
+            const imageRect = images[currentIndex].getBoundingClientRect();
+            const containerRect = scrollContainer.getBoundingClientRect();
+            const scrollPosition = imageRect.left - containerRect.width / 2 + imageRect.width / 2 + scrollContainer.scrollLeft;
+
+            scrollContainer.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
         }
     }
 }
 
-// Function to auto-scroll to the next image
 function autoScroll() {
-    currentIndex = (currentIndex + 1) % images.length; // Cycle to next image
-
-    // Get the position of the current image
+    currentIndex = (currentIndex + 1) % images.length;
+    
     const imageRect = images[currentIndex].getBoundingClientRect();
     const containerRect = scrollContainer.getBoundingClientRect();
+    const scrollPosition = imageRect.left - containerRect.width / 2 + imageRect.width / 2 + scrollContainer.scrollLeft;
 
-    // Calculate the new scroll position
-    const scrollPosition = imageRect.left - containerRect.left + scrollContainer.scrollLeft;
-
-    // Smoothly scroll to the calculated position without affecting vertical position
     scrollContainer.scrollTo({
         left: scrollPosition,
-        behavior: 'smooth' // Smooth scrolling effect
+        behavior: 'smooth'
     });
 }
 
-
 // Start the auto-scrolling
 function startAutoScroll() {
-    autoScrollInterval = setInterval(autoScroll, scrollSpeed); // 1000 ms = 1 second
+    if (!autoScrollInterval) {
+        autoScrollInterval = setInterval(autoScroll, scrollSpeed);
+    }
 }
 
 // Stop the auto-scrolling
 function stopAutoScroll() {
     clearInterval(autoScrollInterval);
+    autoScrollInterval = null;  // Reset the interval reference
 }
 
 // Event listeners for navigation buttons and gallery container
@@ -75,56 +85,44 @@ document.querySelector('.nav-button.right').addEventListener('click', () => scro
 scrollContainer.addEventListener('mouseenter', stopAutoScroll);
 scrollContainer.addEventListener('mouseleave', startAutoScroll);
 
-
-
 // Open modal when image is clicked
-images.forEach((image, index) => {
-    image.addEventListener('click', () => {
-        modal.style.display = "block"; // Make modal visible immediately
-        modalImg.src = image.src;
-
-        // Use setTimeout to delay scaling until the modal is shown
-        setTimeout(() => {
-            modal.classList.add('show'); // Add show class for fade effect
-            modalImg.style.transform = "translate(-50%, -50%) scale(1)"; // Animate opening
-        }, 10); // Small delay for rendering
-
-        currentIndex = index; // Set currentIndex to the clicked image
-    });
-});
-
-// Close modal when the close button is clicked
-closeButton.addEventListener('click', () => {
-    modalImg.style.transform = "translate(-50%, -50%) scale(0.9)"; // Animate closing
-    modal.classList.remove('show'); // Fade out the modal
+function openModal(image) {
+    modal.style.display = "block";
+    modalImg.src = image.src;
 
     setTimeout(() => {
-        modal.style.display = "none"; // Hide the modal after fading out
-    }, 500); // Match the duration of the transition
+        modal.classList.add('show');
+        modalImg.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 10);
+    
+    currentIndex = Array.from(images).indexOf(image);
+    stopAutoScroll(); // Stop auto-scrolling when modal is opened
+}
+
+// Function to close modal and restart auto-scrolling
+function closeModal() {
+    modalImg.style.transform = "translate(-50%, -50%) scale(0.9)";
+    modal.classList.remove('show');
+
+    setTimeout(() => {
+        modal.style.display = "none";
+        startAutoScroll(); // Restart auto-scrolling when modal is closed
+    }, 500);
+}
+
+// Update event listener for opening the modal
+images.forEach((image) => {
+    image.addEventListener('click', () => openModal(image));
 });
 
-// Close modal when clicking outside the image
+// Update event listener for closing the modal
+closeButton.addEventListener('click', closeModal);
+modalImg.addEventListener('click', closeModal);
 modal.addEventListener('click', (event) => {
     if (event.target === modal) {
-        closeModal(); // Use the close modal function to keep code DRY
-        setTimeout(startAutoScroll, 500); // Delay to allow user to see modal content before auto-scroll resumes
+        closeModal();
     }
 });
-
-// Close modal when clicking on the modal image
-modalImg.addEventListener('click', () => {
-    closeModal(); // Reuse the closeModal function for the same close behavior
-});
-
-// Function to close modal
-function closeModal() {
-    modalImg.style.transform = "translate(-50%, -50%) scale(0.9)"; // Animate closing
-    modal.classList.remove('show'); // Fade out the modal
-
-    setTimeout(() => {
-        modal.style.display = "none"; // Hide the modal after fading out
-    }, 500); // Match the duration of the transition
-}
 
 let startX = 0; // To track the start position of touch event
 

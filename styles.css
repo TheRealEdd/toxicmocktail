@@ -311,7 +311,8 @@ footer {
 
 
     .gallery img {
-        height: clamp(100px, 80vw, 500px); /* Adjust based on height */
+        height: auto; /* Adjust based on height */
+        width: calc(90vw - 20px);
     }
 }
 
