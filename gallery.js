@@ -7,6 +7,7 @@ const scrollContainer = document.querySelector('.gallery-container');
 let currentIndex = 0;
 let autoScrollInterval;
 let scrollSpeed = 3000; // interval for auto-scroll in milliseconds
+let isModalOpen = false; // Flag to track modal state
 
 function scrollGallery(direction) {
     images.forEach(image => image.classList.remove('active'));
@@ -63,22 +64,21 @@ function autoScroll() {
     });
     
     images[currentIndex].classList.add('active');
+    console.log(autoScrollInterval);
+    
 }
 
-// Start the auto-scrolling
 function startAutoScroll() {
-    if (!autoScrollInterval) {
+    if (!autoScrollInterval && !isModalOpen) { // Check if modal is not open
         autoScrollInterval = setInterval(autoScroll, scrollSpeed);
     }
 }
 
-// Stop the auto-scrolling
 function stopAutoScroll() {
     clearInterval(autoScrollInterval);
-    autoScrollInterval = null;  // Reset the interval reference
+    autoScrollInterval = null; // Reset the interval reference
 }
 
-// Event listeners for navigation buttons and gallery container
 document.querySelectorAll('.nav-button').forEach(button => {
     button.addEventListener('click', stopAutoScroll); // Stop on button click
 });
@@ -88,11 +88,14 @@ startAutoScroll();
 
 document.querySelector('.nav-button.left').addEventListener('click', () => scrollGallery(-1)); // Scroll left
 document.querySelector('.nav-button.right').addEventListener('click', () => scrollGallery(1)); // Scroll right
+
+// Stop scrolling when the mouse enters the scroll container
 scrollContainer.addEventListener('mouseenter', stopAutoScroll);
 scrollContainer.addEventListener('mouseleave', startAutoScroll);
 
-// Open modal when image is clicked
+// Open modal when an image is clicked
 function openModal(image) {
+    isModalOpen = true; // Set the flag to true
     modal.style.display = "block";
     modalImg.src = image.src;
 
@@ -107,6 +110,7 @@ function openModal(image) {
 
 // Function to close modal and restart auto-scrolling
 function closeModal() {
+    isModalOpen = false; // Reset the flag
     modalImg.style.transform = "translate(-50%, -50%) scale(0.9)";
     modal.classList.remove('show');
 
@@ -115,6 +119,7 @@ function closeModal() {
         startAutoScroll(); // Restart auto-scrolling when modal is closed
     }, 500);
 }
+
 
 // Update event listener for opening the modal
 images.forEach((image) => {
@@ -130,29 +135,9 @@ modal.addEventListener('click', (event) => {
     }
 });
 
-let startX = 0; // To track the start position of touch event
 
-// Add touch event listeners for swiping
-gallery.addEventListener('touchstart', (event) => {
-    startX = event.touches[0].clientX; // Store the initial touch position
-});
-
-gallery.addEventListener('touchmove', (event) => {
-    const moveX = event.touches[0].clientX; // Updated touch position
-    const deltaX = startX - moveX; // Calculate the difference
-
-    if (deltaX > 50) { // Swipe left threshold
-        navigate(1); // Navigate right
-        startX = moveX; // Reset start position
-    } else if (deltaX < -50) { // Swipe right threshold
-        navigate(-1); // Navigate left
-        startX = moveX; // Reset start position
-    }
-});
-
-
-
-let currentVideoSource = ''; // Initialize a variable to keep track of the current video source
+    //Switching video in mobile view
+let currentVideoSource = '';
 
 function updateVideoSource() {
     const videoElement = document.getElementById('heroVideo');
