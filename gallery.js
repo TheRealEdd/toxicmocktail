@@ -9,6 +9,7 @@ let autoScrollInterval;
 let scrollSpeed = 3000; // interval for auto-scroll in milliseconds
 
 function scrollGallery(direction) {
+    images.forEach(image => image.classList.remove('active'));
     const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
     if (direction === 1) {
@@ -44,9 +45,12 @@ function scrollGallery(direction) {
             });
         }
     }
+    images[currentIndex].classList.add('active');
 }
 
 function autoScroll() {
+    
+    images.forEach(image => image.classList.remove('active'));
     currentIndex = (currentIndex + 1) % images.length;
     
     const imageRect = images[currentIndex].getBoundingClientRect();
@@ -57,6 +61,8 @@ function autoScroll() {
         left: scrollPosition,
         behavior: 'smooth'
     });
+    
+    images[currentIndex].classList.add('active');
 }
 
 // Start the auto-scrolling
