@@ -103,6 +103,11 @@ h2 {
     text-align: center;
 }
 
+#emailSection {
+    text-align: center;
+    font-size: 0.8em;
+}
+
 #gigs, #gallery, #about {
     padding: 50px 10px;
     text-align: center;
