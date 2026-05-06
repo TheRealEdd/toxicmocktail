@@ -141,7 +141,7 @@ let currentVideoSource = '';
 
 function updateVideoSource() {
     const videoElement = document.getElementById('heroVideo');
-    const desktopSource = 'Video/TM Hero Video Desktop.mp4';
+    const desktopSource = 'Video/TM Hero Video Desktop V2.mp4';
     const mobileSource = 'Video/TM mobile hero tiny size.mp4';
 
     // Determine the new source based on window width
