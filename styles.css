@@ -117,12 +117,12 @@ h2 {
     margin: 20px 0;
 }
 
-.gigs-list {
+ul {
     list-style-type: none;
     font-size: 0.8em;
 }
 
-.strikethrough {
+.past-gigs-list > li {
     text-decoration: line-through;
 }
 
