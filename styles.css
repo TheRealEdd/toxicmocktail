@@ -27,6 +27,17 @@ h2 {
     font-size: 3em;
 }
 
+a, a:visited {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: white;
+    cursor: pointer;
+}
+
 .hero {
     position: relative;
     height: 80vh;
